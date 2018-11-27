@@ -2,8 +2,36 @@
 <html>
 
 <head>
-    <title>Slick Playground</title>
+    <title>"7ААС" - Графік розгляду справ</title>
     <meta charset="UTF-8">
+    <meta property="og:image" content="./assets/public/images/og-image.jpg">
+    <meta property="og:image:height" content="157">
+    <meta property="og:image:width" content="300">
+    <meta property="og:title" content="7AAC">
+    <meta property="og:url" content="7aac.vaas.gov.ua">
+    <meta property="og:description" content="Seventh Appellate Administrative Court">
+    
+    
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/public/images/favicon/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/public/images/favicon/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="./assets/public/images/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="./assets/public/images/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="./assets/public/images/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="./assets/public/images/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="./assets/public/images/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="./assets/public/images/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="./assets/public/images/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./assets/public/images/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/public/images/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="./assets/public/images/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/public/images/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="./assets/public/images/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/public/images/favicon/favicon-16x16.png">
+
+    <link rel="manifest" href="./assets/public/images/favicon/web.manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="./assets/public/images/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" type="text/css" href="./css/slick.css">
     <link rel="stylesheet" type="text/css" href="./css/slick-theme.css">
     <style type="text/css">
@@ -22,9 +50,9 @@
             margin: 100px auto;
         }
 
-        .slick-slide {
+        /* .slick-slide {
             margin: 0px 20px;
-        }
+        } */
 
         .slick-slide img {
             width: 100%;
@@ -34,7 +62,6 @@
         .slick-next:before {
             color: black;
         }
-
 
         .slick-slide {
             transition: all ease-in-out .3s;
@@ -86,10 +113,10 @@
             list-style-type: none;
         }
 
-        .time {
+        #time, #date {
             position: fixed;
-
         }
+        #date{top:20px}
 
         table {
             table-layout: fixed;
@@ -139,7 +166,8 @@
 
 <body>
     <div class="wrap">
-        <div class="time">12:00:00</div>
+        <div id="date">пн, 26 листопада 2018 р.</div>
+        <div id="time">12:00:00</div>
         <div class="block_zal">
             <h2>зал судового засідання №1</h2>
             <table>
@@ -1883,9 +1911,20 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/uk.js"></script>
     <script src="./js/slick.js"></script>
     <script>
         $(document).on('ready', function () {
+            $("#date").html(moment().format('dddd, D MMMM YYYY'));
+            var now = moment().format("l");
+            
+            function timedUpdate() {
+                $("#time").html(moment().format('LTS'));
+                setTimeout(timedUpdate, 1000);
+            }
+            timedUpdate();
+
             $.ajax({
                     url: "./file.json"
                 })
