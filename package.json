@@ -1,0 +1,28 @@
+{
+  "name": "work_w",
+  "version": "1.0.0",
+  "description": "",
+  "main": "req_coo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm install && node req_coo.js"
+  },
+  "dependencies": {
+    "request": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Eugene-im/work_w.git"
+  },
+  "keywords": [
+    "slider",
+    "ajax",
+    "cases"
+  ],
+  "author": "Eugene",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Eugene-im/work_w/issues"
+  },
+  "homepage": "https://github.com/Eugene-im/work_w#readme"
+}

@@ -2,6 +2,7 @@ $(document).on('ready', function () {
     $("#date").html(moment().format('dddd, D MMMM YYYY'));
     var now = moment().format("L");
     var zal = [];
+    zal[0] = 0;
     zal[1] = 0;
     zal[2] = 0;
     zal[3] = 0;
@@ -12,47 +13,66 @@ $(document).on('ready', function () {
         setTimeout(timedUpdate, 1000);
     }
 
-    function parseResp(a) {
-        $("#date-1").html(a[0].date);
-        $("#number-1").html(a[0].number);
-        console.log(a);
-        console.log(a[0].date);
-        console.log(a[0].judge);
+    function parseResp(a, b, j) {
+        // for(){
+        var dates = $(".date-" + b);
+        // dates[j].html(a[0].date);
+        var caseNumbers = $(".case_number-" + b);
+        // caseNumbers[j].html(a[0].number);
+        // }
+        // console.log(a);
     };
 
     function countDate(a) {
-        var ctr = 0;
+        // var ctr = 1;
 
         for (var i = 0; i < a.length; i++) {
+            var indexZ0 = [];
+            var indexZ1 = [];
+            var indexZ2 = [];
+            var indexZ3 = [];
+            var indexZ4 = [];
             var curDate = a[i].date.split(' ', 1);
             var curJudge = a[i].judge.split(' ', 2)[1];
+            var checkJudge = [];
             if (now == curDate[0]) {
-                if (curJudge == "Ватаманюк" || curJudge == "Залімський" || curJudge == "Сторчак" ||
-                    curJudge == "Сушко" || curJudge == "Кузьмишин" || curJudge == "Мельник-Томенко" ||
-                    curJudge == "Франовська" || curJudge == "Іваненко" || curJudge == "Кузьменко" ||
-                    curJudge == "Шидловський") {
-                    console.log('zal1' + '' + 'json_key_index' + i);
-                    zal[1] = ctr++;
-                }
-                if (curJudge == "Совгира" || curJudge == "Курко" || curJudge == "Граб" || curJudge ==
-                    "Загороднюк" || curJudge == "Біла" || curJudge == "Матохнюк" || curJudge == "Моніч" ||
-                    curJudge == "Капустинський" || curJudge == "Охрімчук" || curJudge == "Мацький") {
-                    console.log('zal2' + '' + 'json_key_index' + i);
-                    zal[2] = ctr++;
-                }
-                if (curJudge == "Сапальова" || curJudge == "Гонтарук" || curJudge == "Драчук" || curJudge ==
-                    "Боровицький" || curJudge == "Полотнянко" || curJudge == "Смілянець") {
-                    console.log('zal3' + '' + 'json_key_index' + i);
-                    zal[3] = ctr++;
+                if (curJudge == "Ватаманюк" || curJudge == "Залімський" || curJudge == "Сторчак" || curJudge == "Сушко" || curJudge == "Кузьмишин" || curJudge == "Мельник-Томенко" || curJudge == "Франовська" || curJudge == "Іваненко" || curJudge == "Кузьменко" || curJudge == "Шидловський") {
+                    zal[1] += 1;
+                    indexZ1.push(i);
+
+                    console.log('zal1' + ' ' + 'json_key_index' + i);
+
+                } else if (curJudge == "Совгира" || curJudge == "Курко" || curJudge == "Граб" || curJudge == "Загороднюк" || curJudge == "Біла" || curJudge == "Матохнюк" || curJudge == "Моніч" || curJudge == "Капустинський" || curJudge == "Охрімчук" || curJudge == "Мацький") {
+                    console.log('zal2' + ' ' + 'json_key_index' + i);
+                    zal[2] += 1;
+                    indexZ2.push(i);
+
+                } else if (curJudge == "Сапальова" || curJudge == "Гонтарук" || curJudge == "Драчук" || curJudge == "Боровицький" || curJudge == "Полотнянко" || curJudge == "Смілянець") {
+                    console.log('zal3' + ' ' + 'json_key_index' + i);
+                    indexZ3.push(i);
+                    zal[3] += 1;
+                } else {
+                    zal[0] += 1;
+                    indexZ0.push(i);
+                    checkJudge.push(curJudge)
+                    console.error("проверь наличие єтих судей в общем списке:" + checkJudge);
                 }
             }
         }
-        for (var m = 0; m < 4; m++) {
+        console.log(zal);
+        console.log(indexZ0);
+        console.log(indexZ1);
+        console.log(indexZ2);
+        console.log(indexZ3);
+        console.log(indexZ4);
+        for (var m = 1; m < zal.length; m++) {
             for (var j = 0; j < zal[m]; j++) {
                 $('.vertical-' + m).append(
-                    '<li><table><tr><td class="number">1</td><td id="date-1"></td><td class="time"></td><td class="case_number"></td><td>who ask</td><td>who req</td><td>what</td><td><select><option>розглядається</option><option>затримується +5хв</option><option>затримується +15хв</option><option>затримується +30хв</option></select></td></tr></table></li>'
+                    '<li><table><tr><td class="number-' + m + '"></td><td class="date-' + m + '"></td><td class="time-' + m + '"></td><td class="case_number-' + m + '"></td><td>who ask</td><td>who req</td><td>what</td><td><select><option>розглядається</option><option>затримується +5хв</option><option>затримується +15хв</option><option>затримується +30хв</option></select></td></tr></table></li>'
                 );
+                parseResp(a, m, j);
             }
+
         }
 
     }

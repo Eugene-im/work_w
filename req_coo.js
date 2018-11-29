@@ -29,7 +29,7 @@ const phpdata = request(options, function (err,response,body) {
   console.log(err,JSON.stringify(response.headers),body.length)
 });
 // Создание файла
-const filename = new Date().toLocaleDateString()+'.json'
+const filename = "_file"+'.json'
 const output = fs.createWriteStream(filename)
 .on('error', function (err) {
   console.log(err);
